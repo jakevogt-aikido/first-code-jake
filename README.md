@@ -1,6 +1,6 @@
 # Bird Adventure
 
-A colorful Python bird game with levels, lives, bird facts, and a simple GUI.
+A polished Python bird game with a start screen, adventure gameplay, bird challenges, score tracking, and a Tkinter GUI.
 
 ## Run it
 
@@ -10,8 +10,9 @@ python main.py
 
 ## Features
 
-- adventure gameplay with score, levels, and lives
-- bird encyclopedia
-- mini quiz and clue challenges
-- animated ASCII bird art
-- Tkinter GUI for quick browsing
+- start screen and title screen
+- adventure mode with levels and lives
+- score tracking and persistently saved best score
+- bird encyclopedia and challenge modes
+- animated bird art
+- optional GUI mode

@@ -1,7 +1,12 @@
+import json
+import os
 import random
 import time
 from dataclasses import dataclass
 from tkinter import END, Button, Frame, Label, Listbox, Tk
+
+
+SAVE_FILE = "bird_game_save.json"
 
 
 @dataclass
@@ -158,6 +163,43 @@ def print_header(title):
     print(f"{'=' * 30}")
 
 
+def load_save_data():
+    default = {"best_score": 0}
+    if not os.path.exists(SAVE_FILE):
+        return default
+
+    try:
+        with open(SAVE_FILE, "r", encoding="utf-8") as file:
+            return json.load(file)
+    except (json.JSONDecodeError, OSError):
+        return default
+
+
+def save_score(score):
+    data = load_save_data()
+    if score > data.get("best_score", 0):
+        data["best_score"] = score
+    with open(SAVE_FILE, "w", encoding="utf-8") as file:
+        json.dump(data, file)
+
+
+def title_screen():
+    clear_screen()
+    print_header("BIRD ADVENTURE")
+    print("Welcome to the Bird Adventure game!")
+    print("You are a bird explorer learning the sky's most amazing creatures.")
+    print("")
+    print("1. Start Adventure")
+    print("2. Explore Birds")
+    print("3. Bird Quiz")
+    print("4. Bird Match Challenge")
+    print("5. Open GUI")
+    print("6. Exit")
+
+    choice = input("Choose an option: ").strip()
+    return choice
+
+
 def show_bird_profile(bird):
     print(bird.art)
     print(f"Name: {bird.name}")
@@ -294,13 +336,15 @@ class BirdAdventureGame:
         print("Welcome to Bird Adventure!")
         print("Answer the bird questions correctly to earn points.")
         print("Take care: you have 3 lives. Lose them all and the game ends.")
+        save_data = load_save_data()
+        print(f"Best score: {save_data.get('best_score', 0)}")
         input("Press Enter to begin...\n")
 
         while self.level <= self.max_levels and self.lives > 0:
             bird = random.choice(BIRD_LIBRARY)
             print(f"\nLevel {self.level} | Score: {self.score} | Lives: {self.lives}")
             print(bird.art)
-            print(f"Which bird is this? Choose the matching species.")
+            print("Which bird is this? Choose the matching species.")
 
             options = [bird.species]
             while len(options) < 4:
@@ -332,20 +376,16 @@ class BirdAdventureGame:
             print("\nGame over! The birds won this round.")
         else:
             print(f"\nYou won Bird Adventure! Final score: {self.score}")
+
+        save_score(self.score)
+        best_score = load_save_data().get("best_score", 0)
+        print(f"Best score saved: {best_score}")
         print("Thanks for playing!")
 
 
 def bird_cli():
     while True:
-        print_header("Bird App Deluxe")
-        print("1. Bird Adventure Game")
-        print("2. Explore birds")
-        print("3. Bird quiz")
-        print("4. Bird match challenge")
-        print("5. Open bird GUI")
-        print("6. Exit")
-
-        choice = input("Choose an option: ").strip()
+        choice = title_screen()
 
         if choice == "1":
             BirdAdventureGame().run()
@@ -361,7 +401,7 @@ def bird_cli():
             print("Thanks for visiting the birds. Fly safe!")
             break
         else:
-            print("Please choose a valid menu option.")
+            print("Please choose a valid option.")
 
 
 class BirdAppGui:
@@ -432,5 +472,4 @@ def open_gui():
 if __name__ == "__main__":
     bird_cli()
 
-# Bird App Deluxe: a small game-like bird experience with exploration, challenge modes,
-# life-based progression, and a simple GUI for browsing your feathered friends.
+# Bird Adventure: polished start screen, saved best score, and expanded game experience.
