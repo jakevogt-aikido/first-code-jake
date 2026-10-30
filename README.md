@@ -1,6 +1,6 @@
-# Bird App
+# Bird App Deluxe
 
-A fun Python app that lets you explore a collection of birds, watch animated ASCII birds, play a quick score-based quiz, and open a small Tkinter window.
+A playful Python app for exploring birds, testing your bird knowledge, and previewing a simple Tkinter interface.
 
 ## Run it
 
@@ -10,8 +10,8 @@ python main.py
 
 ## Features
 
-- Bird profile explorer
-- Animated ASCII bird displays
-- Bigger bird list with fun facts
-- Score-based quiz mode
-- Optional simple GUI built with Tkinter
+- Bird encyclopedia with colorful profiles
+- Animated ASCII bird art
+- Bird quiz and mini challenge modes
+- Score-based win/lose result screens
+- Basic GUI mode with Tkinter
