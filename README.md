@@ -1,6 +1,6 @@
-# Bird App Deluxe
+# Bird Adventure
 
-A playful Python app for exploring birds, testing your bird knowledge, and previewing a simple Tkinter interface.
+A colorful Python bird game with levels, lives, bird facts, and a simple GUI.
 
 ## Run it
 
@@ -10,8 +10,8 @@ python main.py
 
 ## Features
 
-- Bird encyclopedia with colorful profiles
-- Animated ASCII bird art
-- Bird quiz and mini challenge modes
-- Score-based win/lose result screens
-- Basic GUI mode with Tkinter
+- adventure gameplay with score, levels, and lives
+- bird encyclopedia
+- mini quiz and clue challenges
+- animated ASCII bird art
+- Tkinter GUI for quick browsing

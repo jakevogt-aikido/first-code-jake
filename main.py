@@ -22,8 +22,8 @@ BIRD_LIBRARY = [
         "Red breast",
         "Cheerily!",
         "Backyards and gardens",
-        "Robins are famous for hopping and listening for worms under the soil.",
-        """           __
+        "Robins hop across lawns and listen for worms under the soil.",
+        '''           __
         .-"""-.   
       .'  _  '.
      /   ( )  \\
@@ -35,7 +35,7 @@ BIRD_LIBRARY = [
      /  _ _  \\
     |  ( ) (  |
      '.___.'
-        """,
+        ''',
     ),
     Bird(
         "Sky",
@@ -43,8 +43,8 @@ BIRD_LIBRARY = [
         "Blue and white",
         "Jay! Jay!",
         "Woodlands and parks",
-        "Blue jays can copy the calls of hawks and other birds to scare away trouble.",
-        """         ___
+        "Blue jays can mimic hawks and other birds to scare away trouble.",
+        '''         ___
       .-"   "-.
      /  .-. . \\
      |  | | | |
@@ -53,7 +53,7 @@ BIRD_LIBRARY = [
          / \\
         /   \\
        /____\\
-        """,
+        ''',
     ),
     Bird(
         "Misty",
@@ -62,15 +62,15 @@ BIRD_LIBRARY = [
         "Hoo hoo!",
         "Forests and quiet groves",
         "Owls can rotate their heads in a nearly full circle.",
-        """       ___
+        '''       ___
      .-"   "-.
     /  o o  \\
     |  ^  ^  |
-    |  \_/  |
+    |  \\_/  |
      '.___.'
       / \\
      /   \\
-    """,
+    ''',
     ),
     Bird(
         "Pip",
@@ -79,12 +79,13 @@ BIRD_LIBRARY = [
         "Chirp chirp!",
         "Urban gardens and grasslands",
         "Sparrows are tiny but full of energy and often travel in groups.",
-        """         __
-       (o )
-      /|\\\\
-      / \\\n     /   \\
-     \\___/ 
-        """,
+        '''         __
+        (o )
+       /|\\\\
+       / \\
+      /   \\
+      \\___/ 
+        ''',
     ),
     Bird(
         "Luna",
@@ -93,12 +94,12 @@ BIRD_LIBRARY = [
         "Buzz!",
         "Flower gardens",
         "Hummingbirds can flap their wings so quickly they seem to hover in place.",
-        """      .-""-. 
+        '''      .-""-. 
      .'  _  '.
     /  ( )  \\
     |  .-.  |
      '.___.'
-        """,
+        ''',
     ),
     Bird(
         "Dart",
@@ -107,13 +108,13 @@ BIRD_LIBRARY = [
         "Kreeee!",
         "Open skies and cliffs",
         "Falcons are among the fastest animals on Earth.",
-        """       __
+        '''       __
      __/  \\
    / o  o \\
    \\  ^  /
     `-._.-'
        /|\\
-        """,
+        ''',
     ),
     Bird(
         "Wren",
@@ -122,12 +123,12 @@ BIRD_LIBRARY = [
         "Tweedle-dee!",
         "Shrubbery and wood edges",
         "Wrens are small, noisy, and surprisingly bold for their size.",
-        """       ___
+        '''       ___
      .-( )-.
     /  .-.  \\
     |  | |  |
      '.___.'
-        """,
+        ''',
     ),
     Bird(
         "Flora",
@@ -136,19 +137,25 @@ BIRD_LIBRARY = [
         "Aaaah!",
         "Gardens and open forests",
         "Peacocks fan their colorful tails to attract a mate.",
-        """       __
+        '''       __
      .-"  "-.
     /  o o  \\
     |  .-.  |
     |  `-'  |
      '.___.'
-        """,
+        ''',
     ),
 ]
 
 
+def clear_screen():
+    print("\033[H\033[J", end="")
+
+
 def print_header(title):
-    print(f"\n=== {title} ===")
+    print(f"\n{'=' * 30}")
+    print(title)
+    print(f"{'=' * 30}")
 
 
 def show_bird_profile(bird):
@@ -163,9 +170,9 @@ def show_bird_profile(bird):
 
 def animate_bird_preview(bird, loops=2):
     for _ in range(loops):
-        print("\n" + bird.art)
-        time.sleep(0.3)
-        print("\033[H\033[J", end="")
+        clear_screen()
+        print(bird.art)
+        time.sleep(0.25)
 
 
 def bird_explorer():
@@ -176,7 +183,6 @@ def bird_explorer():
         print("0. Back")
 
         choice = input("Choose a bird: ").strip()
-
         if choice == "0":
             return
 
@@ -186,16 +192,6 @@ def bird_explorer():
             animate_bird_preview(bird, loops=1)
         except (ValueError, IndexError):
             print("Please pick a valid bird number.")
-
-
-def show_result(score, total, challenge_name):
-    print(f"\n{challenge_name} score: {score}/{total}")
-    if score == total:
-        print("Perfect score! You are a true bird champion!")
-    elif score >= total * 0.7:
-        print("You won! Great job — your bird instincts are strong.")
-    else:
-        print("You lost this round, but the birds still admire your curiosity.")
 
 
 def bird_quiz():
@@ -213,6 +209,7 @@ def bird_quiz():
         random.shuffle(options)
 
         print(f"\nRound {round_number}: Which species is {bird.name}?")
+        print(bird.art)
         for index, option in enumerate(options, start=1):
             print(f"{index}. {option}")
 
@@ -229,7 +226,13 @@ def bird_quiz():
         else:
             print(f"Not quite. The correct answer was {bird.species}.")
 
-    show_result(score, total_rounds, "Bird Quiz")
+    print(f"\nFinal score: {score}/{total_rounds}")
+    if score == total_rounds:
+        print("Perfect score! You are a bird champion!")
+    elif score >= total_rounds * 0.7:
+        print("Nice job! Your bird instincts are strong.")
+    else:
+        print("Keep practicing — the birds are waiting for you.")
 
 
 def bird_match_challenge():
@@ -270,29 +273,91 @@ def bird_match_challenge():
         else:
             print(f"Wrong answer. It was {bird.name}.")
 
-    show_result(score, total_rounds, "Bird Match Challenge")
+    print(f"\nFinal score: {score}/{total_rounds}")
+    if score == total_rounds:
+        print("You aced the challenge!")
+    elif score >= total_rounds * 0.7:
+        print("You won the challenge! Great work.")
+    else:
+        print("You lost this round, but the birds still respect your curiosity.")
+
+
+class BirdAdventureGame:
+    def __init__(self):
+        self.score = 0
+        self.level = 1
+        self.lives = 3
+        self.max_levels = 5
+
+    def run(self):
+        print_header("Bird Adventure")
+        print("Welcome to Bird Adventure!")
+        print("Answer the bird questions correctly to earn points.")
+        print("Take care: you have 3 lives. Lose them all and the game ends.")
+        input("Press Enter to begin...\n")
+
+        while self.level <= self.max_levels and self.lives > 0:
+            bird = random.choice(BIRD_LIBRARY)
+            print(f"\nLevel {self.level} | Score: {self.score} | Lives: {self.lives}")
+            print(bird.art)
+            print(f"Which bird is this? Choose the matching species.")
+
+            options = [bird.species]
+            while len(options) < 4:
+                candidate = random.choice(BIRD_LIBRARY).species
+                if candidate not in options:
+                    options.append(candidate)
+            random.shuffle(options)
+
+            for index, option in enumerate(options, start=1):
+                print(f"{index}. {option}")
+
+            answer = input("Your answer (number): ").strip()
+            try:
+                choice = options[int(answer) - 1]
+            except (ValueError, IndexError):
+                print("Invalid answer. You lose a life.")
+                self.lives -= 1
+                continue
+
+            if choice == bird.species:
+                self.score += 10 + self.level * 5
+                print("Correct! You earn points.")
+                self.level += 1
+            else:
+                self.lives -= 1
+                print(f"Not quite. The correct answer was {bird.species}.")
+
+        if self.lives <= 0:
+            print("\nGame over! The birds won this round.")
+        else:
+            print(f"\nYou won Bird Adventure! Final score: {self.score}")
+        print("Thanks for playing!")
 
 
 def bird_cli():
     while True:
         print_header("Bird App Deluxe")
-        print("1. Explore birds")
-        print("2. Bird quiz")
-        print("3. Bird match challenge")
-        print("4. Open bird GUI")
-        print("5. Exit")
+        print("1. Bird Adventure Game")
+        print("2. Explore birds")
+        print("3. Bird quiz")
+        print("4. Bird match challenge")
+        print("5. Open bird GUI")
+        print("6. Exit")
 
         choice = input("Choose an option: ").strip()
 
         if choice == "1":
-            bird_explorer()
+            BirdAdventureGame().run()
         elif choice == "2":
-            bird_quiz()
+            bird_explorer()
         elif choice == "3":
-            bird_match_challenge()
+            bird_quiz()
         elif choice == "4":
-            open_gui()
+            bird_match_challenge()
         elif choice == "5":
+            open_gui()
+        elif choice == "6":
             print("Thanks for visiting the birds. Fly safe!")
             break
         else:
@@ -303,16 +368,14 @@ class BirdAppGui:
     def __init__(self, root):
         self.root = root
         self.root.title("Bird App Deluxe")
-        self.root.geometry("700x520")
-
-        self.birds = BIRD_LIBRARY
+        self.root.geometry("720x540")
 
         left = Frame(root)
         left.pack(side="left", fill="y", padx=10, pady=10)
 
         Label(left, text="Birds", font=("Arial", 12, "bold")).pack(pady=(0, 8))
         self.listbox = Listbox(left, width=24, height=18)
-        for bird in self.birds:
+        for bird in BIRD_LIBRARY:
             self.listbox.insert(END, bird.name)
         self.listbox.pack()
         self.listbox.bind("<<ListboxSelect>>", self.show_selected_bird)
@@ -325,19 +388,18 @@ class BirdAppGui:
             text="Select a bird",
             justify="left",
             font=("Arial", 10),
-            wraplength=320,
+            wraplength=350,
         )
-        self.info.pack(anchor="w", padx=3, pady=8)
+        self.info.pack(anchor="w", padx=4, pady=8)
 
-        self.random_btn = Button(root, text="Random Bird", command=self.random_bird)
-        self.random_btn.pack(side="bottom", pady=10)
+        Button(root, text="Random Bird", command=self.random_bird).pack(side="bottom", pady=8)
 
     def show_selected_bird(self, event):
         selection = self.listbox.curselection()
         if not selection:
             return
 
-        bird = self.birds[selection[0]]
+        bird = BIRD_LIBRARY[selection[0]]
         self.info.config(
             text=(
                 f"{bird.art}\n\n"
@@ -354,24 +416,21 @@ class BirdAppGui:
         )
 
     def random_bird(self):
-        bird = random.choice(self.birds)
+        bird = random.choice(BIRD_LIBRARY)
         self.listbox.selection_clear(0, END)
-        idx = self.birds.index(bird)
+        idx = BIRD_LIBRARY.index(bird)
         self.listbox.selection_set(idx)
         self.show_selected_bird(None)
 
 
 def open_gui():
     root = Tk()
-    app = BirdAppGui(root)
+    BirdAppGui(root)
     root.mainloop()
 
 
 if __name__ == "__main__":
     bird_cli()
 
-# A refined bird app with a CLI, quiz system, challenge mode, and a lightweight GUI.
-# This version is built to be easy to extend with more birds or richer visual effects.
-
-
-"}]} ivoq to=functions.push_files ൨{
+# Bird App Deluxe: a small game-like bird experience with exploration, challenge modes,
+# life-based progression, and a simple GUI for browsing your feathered friends.
